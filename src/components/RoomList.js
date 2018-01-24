@@ -4,11 +4,12 @@ import {
   FlatList,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View
 } from "react-native";
 
 import Settings from "../config/Settings";
-import ListItem from "./RoomListItem";
+import ListItem from "./Room";
 
 export default class RoomList extends React.Component {
   state = {
@@ -58,7 +59,9 @@ export default class RoomList extends React.Component {
       <FlatList
         data={this.state.items}
         renderItem={({ item }) => (
-          <ListItem room={item} onPressItem={this._onPressItem} />
+          <TouchableOpacity onPress={() => this._onPressItem(item._id)}>
+            <ListItem room={item} />
+          </TouchableOpacity>
         )}
         keyExtractor={(item, index) => item._id}
       />

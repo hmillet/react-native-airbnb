@@ -1,37 +1,11 @@
 import React from "react";
-import {
-  ActivityIndicator,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 import Settings from "../config/Settings";
 
 export default class Room extends React.Component {
-  state = {
-    room: null
-  };
+  state = {};
 
-  componentDidMount() {
-    fetch("https://airbnb-api.now.sh/api/room/" + this.props.roomId, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(item => {
-        this.setState({ room: item });
-        console.debug(item);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
   renderPhoto(room) {
     if (room.photos.length > 0) {
       return (
@@ -124,39 +98,24 @@ export default class Room extends React.Component {
   }
 
   render() {
-    const room = this.state.room;
-    if (room != null) {
-      return (
-        <View style={styles.container}>
-          <View style={styles.photo}>
-            {this.renderPhoto(room)}
-            {this.renderPrice(room)}
-          </View>
-          <View style={styles.content}>
-            {this.renderUser(room)}
-            <View style={styles.description}>
-              <Text style={styles.title} numberOfLines={1}>
-                {room.title}
-              </Text>
-              {this.renderRating(room)}
-            </View>
+    const room = this.props.room;
+    return (
+      <View style={styles.container}>
+        <View style={styles.photo}>
+          {this.renderPhoto(room)}
+          {this.renderPrice(room)}
+        </View>
+        <View style={styles.content}>
+          {this.renderUser(room)}
+          <View style={styles.description}>
+            <Text style={styles.title} numberOfLines={1}>
+              {room.title}
+            </Text>
+            {this.renderRating(room)}
           </View>
         </View>
-      );
-    } else {
-      return (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 100
-          }}
-        >
-          <ActivityIndicator size="large" color="#999999" />
-        </View>
-      );
-    }
+      </View>
+    );
   }
 }
 

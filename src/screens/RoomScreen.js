@@ -1,11 +1,41 @@
 import React from "react";
-import { Dimensions, StyleSheet, Text, ScrollView } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  ScrollView,
+  View
+} from "react-native";
 
 import Settings from "../config/Settings";
 import Room from "../components/Room";
 
 export default class RoomScreen extends React.Component {
-  state = {};
+  state = {
+    room: null
+  };
+
+  componentDidMount() {
+    fetch(
+      "https://airbnb-api.now.sh/api/room/" +
+        this.props.navigation.state.params.roomId,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }
+    )
+      .then(response => response.json())
+      .then(item => {
+        this.setState({ room: item });
+        console.debug(item);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   static navigationOptions = {
     title: "Room",
@@ -22,11 +52,27 @@ export default class RoomScreen extends React.Component {
   };
 
   render() {
-    return (
-      <ScrollView style={styles.container}>
-        <Room roomId={this.props.navigation.state.params.roomId} />
-      </ScrollView>
-    );
+    const room = this.state.room;
+    if (room != null) {
+      return (
+        <ScrollView style={styles.container}>
+          <Room room={this.state.room} />
+        </ScrollView>
+      );
+    } else {
+      return (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "flex-start",
+            alignItems: "center",
+            marginTop: 100
+          }}
+        >
+          <ActivityIndicator size="large" color="#999999" />
+        </View>
+      );
+    }
   }
 }
 
