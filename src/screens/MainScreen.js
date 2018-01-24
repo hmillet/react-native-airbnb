@@ -9,7 +9,7 @@ export default class MainScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text> Ecran d'accueil' </Text>
+        <Text> Ecran d'accueil </Text>
       </View>
     );
   }

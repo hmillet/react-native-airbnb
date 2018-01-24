@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 
 import Settings from "../config/Settings";
 
@@ -11,9 +11,11 @@ export default class LoginScreen extends React.Component {
   state = {};
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text> Ecran de login </Text>
+        <Button title="Page d'accueil" onPress={() => navigate("MainScreen")} />
       </View>
     );
   }

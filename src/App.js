@@ -8,8 +8,8 @@ import LoginScreen from "./screens/LoginScreen";
 import MainScreen from "./screens/MainScreen";
 
 const App = StackNavigator({
-  Login: { screen: LoginScreen },
-  Main: { screen: MainScreen }
+  LoginScreen: { screen: LoginScreen },
+  MainScreen: { screen: MainScreen }
 });
 
 export default App;
