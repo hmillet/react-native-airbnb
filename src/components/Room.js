@@ -20,6 +20,32 @@ export default class Room extends React.Component {
     }
   }
 
+  renderPrice(room) {
+    if (room.price) {
+      return (
+        <View
+          style={{
+            position: "absolute",
+            left: 0,
+            bottom: 15
+          }}
+        >
+          <Text
+            style={{
+              backgroundColor: "#000000",
+              color: "#ffffff",
+              fontSize: 28,
+              paddingHorizontal: 14,
+              paddingVertical: 14
+            }}
+          >
+            {room.price + " €"}
+          </Text>
+        </View>
+      );
+      return <View />;
+    }
+  }
   renderUser(room) {
     if (
       room.user &&
@@ -74,7 +100,10 @@ export default class Room extends React.Component {
     const room = this.props.room;
     return (
       <View style={styles.container}>
-        <View style={styles.photo}>{this.renderPhoto(room)}</View>
+        <View style={styles.photo}>
+          {this.renderPhoto(room)}
+          {this.renderPrice(room)}
+        </View>
         <View style={styles.content}>
           {this.renderUser(room)}
           <View style={styles.description}>
@@ -121,11 +150,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
-    alignItems: "flex-end"
+    alignItems: "center"
   },
   textReview: {
     color: "#666666",
     fontSize: 15,
-    marginLeft: 10
+    marginLeft: 10,
+    paddingTop: 3
   }
 });
