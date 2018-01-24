@@ -7,9 +7,14 @@ import Settings from "./config/Settings";
 import LoginScreen from "./screens/LoginScreen";
 import MainScreen from "./screens/MainScreen";
 
-const App = StackNavigator({
-  LoginScreen: { screen: LoginScreen },
-  MainScreen: { screen: MainScreen }
-});
+const App = StackNavigator(
+  {
+    LoginScreen: { screen: LoginScreen },
+    MainScreen: { screen: MainScreen }
+  },
+  {
+    headerMode: "float" // float, screen or none
+  }
+);
 
 export default App;
