@@ -1,10 +1,15 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import Settings from "../config/Settings";
 
 export default class Room extends React.Component {
   state = {};
+
+  _onPress = () => {
+    this.props.onPressItem(this.props.room._id);
+  };
+
   renderPhoto(room) {
     if (room.photos.length > 0) {
       return (
@@ -99,21 +104,23 @@ export default class Room extends React.Component {
   render() {
     const room = this.props.room;
     return (
-      <View style={styles.container}>
-        <View style={styles.photo}>
-          {this.renderPhoto(room)}
-          {this.renderPrice(room)}
-        </View>
-        <View style={styles.content}>
-          {this.renderUser(room)}
-          <View style={styles.description}>
-            <Text style={styles.title} numberOfLines={1}>
-              {room.title}
-            </Text>
-            {this.renderRating(room)}
+      <TouchableOpacity onPress={this._onPress}>
+        <View style={styles.container}>
+          <View style={styles.photo}>
+            {this.renderPhoto(room)}
+            {this.renderPrice(room)}
+          </View>
+          <View style={styles.content}>
+            {this.renderUser(room)}
+            <View style={styles.description}>
+              <Text style={styles.title} numberOfLines={1}>
+                {room.title}
+              </Text>
+              {this.renderRating(room)}
+            </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }

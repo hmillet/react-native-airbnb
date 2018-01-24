@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 import Settings from "../config/Settings";
-import ListItem from "./Room";
+import ListItem from "./RoomListItem";
 
 export default class Body extends React.Component {
   state = {
@@ -33,6 +33,12 @@ export default class Body extends React.Component {
       })
       .finally(() => this.setState({ loading: false }));
   }
+
+  _onPressItem = id => {
+    const { navigate } = this.props.navigation;
+    navigate("RoomScreen", { roomId: id });
+  };
+
   render() {
     if (this.state.loading) {
       return (
@@ -51,7 +57,9 @@ export default class Body extends React.Component {
     return (
       <FlatList
         data={this.state.items}
-        renderItem={({ item }) => <ListItem room={item} />}
+        renderItem={({ item }) => (
+          <ListItem room={item} onPressItem={this._onPressItem} />
+        )}
         keyExtractor={(item, index) => item._id}
       />
     );

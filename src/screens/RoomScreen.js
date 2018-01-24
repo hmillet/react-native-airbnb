@@ -2,13 +2,13 @@ import React from "react";
 import { Dimensions, StyleSheet, Text, ScrollView } from "react-native";
 
 import Settings from "../config/Settings";
-import Body from "../components/Body";
+//import Body from "../components/Body";
 
-export default class MainScreen extends React.Component {
+export default class RoomScreen extends React.Component {
   state = {};
 
   static navigationOptions = {
-    title: "MonAirbnb",
+    title: "Room",
     headerStyle: {
       backgroundColor: Settings.color.background
     },
@@ -24,7 +24,7 @@ export default class MainScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Body navigation={this.props.navigation} />
+        <Text>{this.props.navigation.state.params.roomId}</Text>
       </ScrollView>
     );
   }
@@ -32,7 +32,7 @@ export default class MainScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#00ffff",
     flex: 1
   }
 });

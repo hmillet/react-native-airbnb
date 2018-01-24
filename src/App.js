@@ -6,11 +6,13 @@ import Settings from "./config/Settings";
 
 import LoginScreen from "./screens/LoginScreen";
 import MainScreen from "./screens/MainScreen";
+import RoomScreen from "./screens/RoomScreen";
 
 const App = StackNavigator(
   {
     LoginScreen: { screen: LoginScreen },
-    MainScreen: { screen: MainScreen }
+    MainScreen: { screen: MainScreen },
+    RoomScreen: { screen: RoomScreen }
   },
   {
     headerMode: "float", // float, screen or none
