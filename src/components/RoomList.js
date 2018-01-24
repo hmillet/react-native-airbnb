@@ -60,7 +60,7 @@ export default class RoomList extends React.Component {
         data={this.state.items}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => this._onPressItem(item._id)}>
-            <ListItem room={item} />
+            <ListItem room={item} inList={true} />
           </TouchableOpacity>
         )}
         keyExtractor={(item, index) => item._id}

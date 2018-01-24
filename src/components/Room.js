@@ -1,16 +1,31 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import PropTypes from "prop-types";
 
 import Settings from "../config/Settings";
 
 export default class Room extends React.Component {
   state = {};
 
+  static defaultProps = {
+    room: null,
+    inList: false
+  };
+
+  static propTypes = {
+    room: PropTypes.object.isRequired,
+    inList: PropTypes.bool
+  };
+
   renderPhoto(room) {
+    const inList = this.props.inList;
     if (room.photos.length > 0) {
       return (
         <Image
-          style={{ height: 180, width: "100%" }}
+          style={[
+            { width: "100%" },
+            inList ? { height: 180 } : { height: 240 }
+          ]}
           resizeMode="cover"
           source={{
             uri: room.photos[0]
@@ -97,11 +112,41 @@ export default class Room extends React.Component {
     );
   }
 
+  renderDetail(room) {
+    const inList = this.props.inList;
+    if (room && !inList) {
+      return (
+        <View style={styles.detail}>
+          <Text style={styles.detailDescription} numberOfLines={3}>
+            {room.description}
+          </Text>
+        </View>
+      );
+      return <View />;
+    }
+  }
+
   render() {
     const room = this.props.room;
+    const inList = this.props.inList;
     return (
-      <View style={styles.container}>
-        <View style={styles.photo}>
+      <View
+        style={[
+          styles.container,
+          inList
+            ? {
+                marginTop: 20,
+                borderBottomColor: "#bbb",
+                borderBottomWidth: StyleSheet.hairlineWidth
+              }
+            : {}
+        ]}
+      >
+        <View
+          style={
+            inList ? { marginHorizontal: 20, height: 190 } : { height: 250 }
+          }
+        >
           {this.renderPhoto(room)}
           {this.renderPrice(room)}
         </View>
@@ -114,6 +159,7 @@ export default class Room extends React.Component {
             {this.renderRating(room)}
           </View>
         </View>
+        {this.renderDetail(room)}
       </View>
     );
   }
@@ -124,15 +170,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
-    margin: 20,
-    paddingBottom: 10,
-    borderBottomColor: "#bbb",
-    borderBottomWidth: StyleSheet.hairlineWidth
-  },
-  photo: {
-    height: 190
+    paddingBottom: 10
   },
   content: {
+    marginHorizontal: 20,
     flex: 1,
     flexDirection: "row-reverse",
     justifyContent: "flex-start",
@@ -158,5 +199,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginLeft: 10,
     paddingTop: 3
+  },
+  detail: {
+    margin: 20
+  },
+  detailDescription: {
+    color: "#000000",
+    fontSize: 18
   }
 });
