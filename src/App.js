@@ -13,7 +13,8 @@ const App = StackNavigator(
     MainScreen: { screen: MainScreen }
   },
   {
-    headerMode: "float" // float, screen or none
+    headerMode: "float", // float, screen or none
+    initialRouteName: "MainScreen"
   }
 );
 

@@ -1,6 +1,7 @@
 import React from "react";
 import {
   ActivityIndicator,
+  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -62,15 +63,15 @@ export default class LoginScreen extends React.Component {
     }
     return (
       <TouchableOpacity style={styles.button} onPress={this._login}>
-        <ActivityIndicator size="large" color="#f45c5f" />
+        <ActivityIndicator size="large" color={Settings.color.background} />
       </TouchableOpacity>
     );
   }
 
   render() {
-    // onPress={() => navigate("MainScreen")}
     return (
       <View style={styles.container}>
+        <Image style={styles.icone} source={require("../img/home.png")} />
         <Text style={styles.title}> Welcome </Text>
         <TextInput
           style={[{ marginTop: 70 }, styles.input]}
@@ -80,6 +81,7 @@ export default class LoginScreen extends React.Component {
           keyboardType="email-address"
           onChangeText={login => this.setState({ login })}
           value={this.state.login}
+          onSubmitEditing={this._login}
         />
         <TextInput
           style={[{ marginTop: 30 }, styles.input]}
@@ -89,6 +91,7 @@ export default class LoginScreen extends React.Component {
           secureTextEntry={true}
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
+          onSubmitEditing={this._login}
         />
         {this.renderButton()}
       </View>
@@ -100,9 +103,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#f45c5f"
+    backgroundColor: Settings.color.background
+  },
+  icone: {
+    alignSelf: "center"
   },
   title: {
+    marginTop: 20,
     color: "#ffffff",
     fontSize: 40,
     alignSelf: "center"
@@ -125,7 +132,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   buttonText: {
-    color: "#f45c5f",
+    color: Settings.color.background,
     fontSize: 26,
     alignSelf: "center"
   }
