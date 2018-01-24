@@ -2,7 +2,7 @@ import React from "react";
 import { Dimensions, StyleSheet, Text, ScrollView } from "react-native";
 
 import Settings from "../config/Settings";
-import Body from "../components/Body";
+import RoomList from "../components/RoomList";
 
 export default class MainScreen extends React.Component {
   state = {};
@@ -24,7 +24,7 @@ export default class MainScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Body navigation={this.props.navigation} />
+        <RoomList navigation={this.props.navigation} />
       </ScrollView>
     );
   }

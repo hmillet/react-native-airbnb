@@ -2,7 +2,7 @@ import React from "react";
 import { Dimensions, StyleSheet, Text, ScrollView } from "react-native";
 
 import Settings from "../config/Settings";
-//import Body from "../components/Body";
+import Room from "../components/Room";
 
 export default class RoomScreen extends React.Component {
   state = {};
@@ -24,7 +24,7 @@ export default class RoomScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Text>{this.props.navigation.state.params.roomId}</Text>
+        <Room roomId={this.props.navigation.state.params.roomId} />
       </ScrollView>
     );
   }
@@ -32,7 +32,7 @@ export default class RoomScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#00ffff",
+    backgroundColor: "#ffffff",
     flex: 1
   }
 });

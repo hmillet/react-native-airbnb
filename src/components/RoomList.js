@@ -10,7 +10,7 @@ import {
 import Settings from "../config/Settings";
 import ListItem from "./RoomListItem";
 
-export default class Body extends React.Component {
+export default class RoomList extends React.Component {
   state = {
     items: [],
     loading: true
