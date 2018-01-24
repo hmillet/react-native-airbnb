@@ -16,7 +16,58 @@ export default class Room extends React.Component {
           }}
         />
       );
+      return <View />;
     }
+  }
+
+  renderUser(room) {
+    if (
+      room.user &&
+      room.user.account &&
+      room.user.account.photos &&
+      room.user.account.photos.length > 0
+    ) {
+      return (
+        <Image
+          style={{ height: 60, width: 60, borderRadius: 30, marginLeft: 10 }}
+          resizeMode="cover"
+          source={{
+            uri: room.user.account.photos[0]
+          }}
+        />
+      );
+      return <View />;
+    }
+  }
+
+  renderRating(room) {
+    const ratingValue = room.ratingValue || 0;
+    const nbReviews =
+      room.reviews > 0 ? "" + room.reviews + " reviews" : "no reviews";
+
+    let stars = [];
+    for (let i = 0; i < ratingValue; i++) {
+      stars.push(
+        <Image
+          key={room._id + "-" + i}
+          source={require("../img/star-full.png")}
+        />
+      );
+    }
+    for (let i = ratingValue; i < 5; i++) {
+      stars.push(
+        <Image
+          key={room._id + "-" + i}
+          source={require("../img/star-empty.png")}
+        />
+      );
+    }
+    return (
+      <View style={styles.reviews}>
+        {stars}
+        <Text style={styles.textReview}>{nbReviews}</Text>
+      </View>
+    );
   }
 
   render() {
@@ -25,10 +76,12 @@ export default class Room extends React.Component {
       <View style={styles.container}>
         <View style={styles.photo}>{this.renderPhoto(room)}</View>
         <View style={styles.content}>
+          {this.renderUser(room)}
           <View style={styles.description}>
             <Text style={styles.title} numberOfLines={1}>
               {room.title}
             </Text>
+            {this.renderRating(room)}
           </View>
         </View>
       </View>
@@ -63,5 +116,16 @@ const styles = StyleSheet.create({
   title: {
     color: "#000000",
     fontSize: 20
+  },
+  reviews: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "flex-end"
+  },
+  textReview: {
+    color: "#666666",
+    fontSize: 15,
+    marginLeft: 10
   }
 });
